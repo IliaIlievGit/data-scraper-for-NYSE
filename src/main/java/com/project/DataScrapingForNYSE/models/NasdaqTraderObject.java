@@ -3,10 +3,8 @@ package com.project.DataScrapingForNYSE.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Objects;
-
 @Entity
-@Table(name = "nasdaq_trader_object")
+@Table(name = "nasdaq_trader_objects")
 @Getter
 @Setter
 @AllArgsConstructor

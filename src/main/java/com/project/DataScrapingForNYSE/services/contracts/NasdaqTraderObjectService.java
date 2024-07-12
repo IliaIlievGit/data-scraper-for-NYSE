@@ -1,4 +1,4 @@
-package com.project.DataScrapingForNYSE.models.service.contracts;
+package com.project.DataScrapingForNYSE.services.contracts;
 
 import com.project.DataScrapingForNYSE.models.NasdaqTraderObject;
 
