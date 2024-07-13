@@ -12,10 +12,15 @@ import java.util.Optional;
 @Repository
 public interface NasdaqTraderObjectRepository extends JpaRepository<NasdaqTraderObject, Integer> {
 
-    Optional<NasdaqTraderObject> findNasdaqTraderObjectBySymbol(String symbol);
+    Optional<NasdaqTraderObject> findBySymbol(String symbol);
+
+    Optional<NasdaqTraderObject> findById(int id);
 
     @Query("SELECT n FROM NasdaqTraderObject n " +
             "WHERE CONCAT (n.symbol, n.companyName, n.nasdaqAction, n.bxAction, n.psxAction, n.effectiveDate, n.primaryListingMarket) " +
             "LIKE %:keyword%")
-    List<NasdaqTraderObject> findAllBy (String keyword, Pageable pageable);
+    List<NasdaqTraderObject> findAllBy(String keyword, Pageable pageable);
+
+    Optional<NasdaqTraderObject> findBySymbolAndAndCompanyNameAndNasdaqActionAndBxActionAndPsxActionAndEffectiveDateAndPrimaryListingMarket
+            (String symbol, String companyName, String nasdaqAction, String bxAction, String psxAction, String effectiveDate, char primaryListingMarket);
 }

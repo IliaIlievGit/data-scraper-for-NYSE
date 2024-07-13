@@ -8,5 +8,11 @@ public interface NasdaqTraderObjectService {
 
     NasdaqTraderObject findNasdaqTraderObjectBySymbol(String symbol);
 
-    List<NasdaqTraderObject> findAllNasdaqTraderObjects (String keyword, int pageNumber, int pageSize, String sortBy, String field);
+    NasdaqTraderObject findNasdaqTraderObjectById(int id);
+
+    List<NasdaqTraderObject> findAllNasdaqTraderObjects(String keyword, int pageNumber, int pageSize, String sortBy, String field);
+
+    NasdaqTraderObject saveNewNasdaqTraderObject(NasdaqTraderObject nasdaqTraderObject);
+
+    NasdaqTraderObject findNasdaqTraderObjectByObject(NasdaqTraderObject nasdaqTraderObject);
 }

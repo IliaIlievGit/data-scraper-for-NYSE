@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,8 +29,21 @@ public class RawDataServiceImpl implements RawDataService {
 
     @Override
     public RawData saveNewDataToDatabase(RawData rawData) {
+        // TODO to remove the last line of the raw data, the File Creation Time...
         checkIfRawDataAlreadyExists(rawData);
         return repository.saveAndFlush(rawData);
+    }
+
+    @Override
+    public RawData findRawDataById(int id) {
+        Optional<RawData> potentialRawData = repository.findRawDataById(id);
+        ValidationsHelper.checkIfEntityIsPresent(potentialRawData, "Raw data", "id", String.valueOf(id));
+        return potentialRawData.get();
+    }
+
+    @Override
+    public List<RawData> findAllRawData() {
+        return repository.findAll();
     }
 
     private void checkIfRawDataAlreadyExists(RawData rawData) {

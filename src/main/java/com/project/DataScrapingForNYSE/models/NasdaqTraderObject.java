@@ -3,13 +3,14 @@ package com.project.DataScrapingForNYSE.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "nasdaq_trader_objects")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
 public class NasdaqTraderObject {
 
@@ -32,4 +33,22 @@ public class NasdaqTraderObject {
     @Column(name = "primary_listing_market")
     private char primaryListingMarket;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NasdaqTraderObject that = (NasdaqTraderObject) o;
+        return primaryListingMarket == that.primaryListingMarket &&
+                Objects.equals(symbol, that.symbol) &&
+                Objects.equals(companyName, that.companyName) &&
+                Objects.equals(nasdaqAction, that.nasdaqAction) &&
+                Objects.equals(bxAction, that.bxAction) &&
+                Objects.equals(psxAction, that.psxAction) &&
+                Objects.equals(effectiveDate, that.effectiveDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(symbol, companyName, nasdaqAction, bxAction, psxAction, effectiveDate, primaryListingMarket);
+    }
 }

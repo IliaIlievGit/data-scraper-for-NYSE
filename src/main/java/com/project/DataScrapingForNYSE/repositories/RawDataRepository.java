@@ -9,5 +9,7 @@ import java.util.Optional;
 @Repository
 public interface RawDataRepository extends JpaRepository<RawData, Integer> {
 
-    Optional<RawData> findRawDataByData (String data);
+    Optional<RawData> findRawDataByData(String data);
+
+    Optional<RawData> findRawDataById(int id);
 }
