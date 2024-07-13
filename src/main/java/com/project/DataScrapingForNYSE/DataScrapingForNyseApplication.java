@@ -15,6 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDateTime;
 
+import static com.project.DataScrapingForNYSE.helpers.ConstantHelpers.FILE_CREATION_TIME_STRING;
+import static com.project.DataScrapingForNYSE.helpers.ConstantHelpers.INDEX_OF_FIRST_ROW_WITH_DATA_FOR_NASDAQ_TRADER_OBJECT;
+
 @SpringBootApplication
 @RequiredArgsConstructor
 
@@ -37,40 +40,24 @@ public class DataScrapingForNyseApplication implements CommandLineRunner {
         Elements rawData = document.select("body");
 
         String text = rawData.text();
+        int index = text.indexOf(FILE_CREATION_TIME_STRING);
+        text = text.substring(INDEX_OF_FIRST_ROW_WITH_DATA_FOR_NASDAQ_TRADER_OBJECT, index);
+        System.out.println(text);
 
-        RawData rawDataObject = new RawData(1, text, LocalDateTime.now());
-        rawDataService.saveNewDataToDatabase(rawDataObject);
+        String[] rows = text.split("(?<=\\|[A-Z]) (?=[A-Z]{1,5}\\|)");
+        String[] emptyRows = new String[0];
+        for (String row : rows) {
+            System.out.println(row);
+            String[] elements = row.split("\\|");
+            for (String element : elements) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
 
-//        System.out.println(text.indexOf("CCNR")); //93
-//        System.out.println(text.indexOf("File Creation Time")); //539
-//        System.out.println(text.length()); //577
-//        // difference 577-339 = 38
-//
-//        String header = text.substring(0, 93);
-//        String records = text.substring(93, text.length() - 38);
-//        String rest = text.substring(text.length() - 38);
-////		System.out.println(header);
-////		System.out.println(records);
-////		System.out.println(rest);
-//
-//        String[] headerColumns = header.split("\\|");
-//
-//        for (String column : headerColumns) {
-//            System.out.printf("%-20s", column.trim());
-//        }
-//        System.out.println();
-//
-//        // Split records based on space followed by uppercase letter
-//        String[] rows = records.split("(?=[A-Z]+\\|)");
-//
-//        // Print each row
-//        for (String row : rows) {
-//            String[] columns = row.trim().split("\\|");
-//            for (String column : columns) {
-//                System.out.printf("%-30s", column.trim());
-//            }
-//            System.out.println();
-//        }
+//        RawData rawDataObject = new RawData(0, text, LocalDateTime.now());
+//        rawDataService.saveNewDataToDatabase(rawDataObject);
+
 
     }
 }
