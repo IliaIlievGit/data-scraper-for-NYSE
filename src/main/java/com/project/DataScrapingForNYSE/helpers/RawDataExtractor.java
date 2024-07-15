@@ -17,7 +17,7 @@ public class RawDataExtractor {
         String text = rawData.getData();
         text = text.substring(INDEX_OF_FIRST_ROW_WITH_DATA_FOR_NASDAQ_TRADER_OBJECT);
 
-        String[] rows = text.split("(?<=\\|[A-Z]) (?=[A-Z]{1,5}\\|)");
+        String[] rows = text.split("(?<=\\|[A-Z]) (?=[A-Z0-9=-]{1,7}\\|)");
         List<NasdaqTraderObject> nasdaqTraderObjectList = new ArrayList<>();
 
         for (String row : rows) {
