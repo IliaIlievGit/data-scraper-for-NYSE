@@ -7,6 +7,7 @@ import com.project.DataScrapingForNYSE.models.RawData;
 import com.project.DataScrapingForNYSE.repositories.RawDataRepository;
 import com.project.DataScrapingForNYSE.services.contracts.RawDataService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Transactional
 @RequiredArgsConstructor
+@Component
 public class RawDataServiceImpl implements RawDataService {
 
     private final RawDataRepository repository;
